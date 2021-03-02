@@ -1,7 +1,7 @@
 <% provide(:title, 'New Issue') %>
-<h1>New Issue for "<%= Project.find(@project_id).name %>"</h1>
+<h1>New Issue for "<%= @project.name %>"</h1>
 
-<%= form_with(model: @issue, method: :post, local: true) do |f| %>
+<%= form_with(model: @issue, scope: :issue, url: '/issues', method: 'post', local: true) do |f| %>
   <%= f.label :title %>
   <br />
   <%= f.text_field :title %>
@@ -25,9 +25,10 @@
 
   <%= f.label :project_id %>
   <br />
-  <%= f.number_field :project_id, value: @project_id, readonly: true %>
+  <%= f.number_field :project_id, value: @project.id, readonly: true %>
   <br />
   <br />
 
-  <%= f.submit 'Create Issue' %>
+  <%= f.submit 'Create Issue', class: 'btn btn-primary' %>
+  <%= link_to 'Back', :back, class: 'btn btn-outline-secondary' %>
 <% end %>

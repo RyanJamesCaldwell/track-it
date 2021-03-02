@@ -13,7 +13,7 @@ class IssuesController < ApplicationController
   end
 
   def new
-    @project_id = params[:project_id]
+    @project = Project.find(params[:project_id])
   end
 
   def show
@@ -25,7 +25,7 @@ class IssuesController < ApplicationController
   def update
     if @issue.update(issue_params)
       flash[:success] = "Issue \"#{@issue.title}\" updated"
-      redirect_to project_issue_path(@issue.project.id, @issue.id)
+      redirect_to project_issue_path(@issue.project, @issue)
     else
       flash[:danger] = 'Issue could not be updated.'
       render 'edit'
@@ -51,6 +51,6 @@ class IssuesController < ApplicationController
   end
 
   def issue_params
-    params.permit(:title, :description, :project_id, :priority, :category)
+    params.require(:issue).permit(:title, :description, :project_id, :priority, :category)
   end
 end
