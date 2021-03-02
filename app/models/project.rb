@@ -4,4 +4,6 @@ class Project < ApplicationRecord
             uniqueness: true,
             allow_blank: false,
             length: { minimum: 3, maximum: 30 }
+
+  has_many :issues, dependent: :destroy
 end
