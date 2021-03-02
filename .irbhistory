@@ -1,0 +1,15 @@
+Object.interesting_methods
+exit
+Object.interesting_methods
+exit
+{ a: 'b' }
+def something_cool
+  puts 'stuff!'
+end
+something_cool(5)
+something_cool
+exit
+Project.all
+Project.destroy(3)
+Project.all
+exit
