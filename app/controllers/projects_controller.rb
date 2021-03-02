@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
-  before_action :verify_project_exists, only: [:show, :edit, :update, :destroy]
+  before_action :project, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :verify_project_admin, only: [:edit, :update, :destroy]
 
   def index
     @projects = Project.all
@@ -48,11 +49,18 @@ class ProjectsController < ApplicationController
 
   private
 
+  def verify_project_admin
+    unless current_user&.is_admin_for?(project: @project)
+      flash[:danger] = 'You must be an admin of the project to do that.'
+      redirect_to @project
+    end
+  end
+
   def project_params
     params.require(:project).permit(:name, :description)
   end
 
-  def verify_project_exists
+  def project
     @project = Project.find_by(id: params[:id])
     render_404 unless @project
   end
