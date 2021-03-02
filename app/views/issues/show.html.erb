@@ -1,2 +1,15 @@
+<br />
 <h1><%= @issue.title %></h1>
+
+<div class="card float-right">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><b>Project:</b> <%= link_to @issue.project.name, projects_path %></li>
+    <li class="list-group-item"><b>State:</b> TODO</li>
+    <li class="list-group-item"><b>Priority:</b> <%= @issue.priority&.capitalize %></li>
+    <li class="list-group-item"><b>Category:</b> <%= @issue.category&.capitalize %></li>
+    <li class="list-group-item"><b>Assigee:</b> TODO</li>
+    <li class="list-group-item"><b>Created:</b> <%= @issue.created_at.strftime('%F') %></li>
+  </ul>
+</div>
+
 <p><%= @issue.description %></p>

@@ -1,4 +1,5 @@
 <% provide(:title, @project.name) %>
+<br />
 <h1><%= @project.name %>
   <% if current_user&.is_admin_for?(project: @project) %>
     <%= link_to '<span style="font-size: 24px" text-align: center;" class="glyphicon glyphicon-cog"></span>'.html_safe, edit_project_path %>
