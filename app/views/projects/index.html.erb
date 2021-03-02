@@ -1,8 +1,25 @@
 <% provide(:title, 'Projects') %>
-<h1>Projects</h1>
+<h1>Projects Directory</h1>
 
-<%= link_to 'New Project', { :action => 'new' }, method: :get, class: 'btn btn-primary' %>
-
-<% @projects.each do |project| %>
-  <p><%= link_to project.name, project %></p>
+<% if user_signed_in? %>
+  <div>
+    <h3>Your Projects</h3>
+    <% if current_user.projects.any? %>
+      <% current_user.projects.each do |project| %>
+        <p><%= link_to project.name, project %></p>
+      <% end %>
+    <% else %>
+      <p>You haven't joined any projects yet.</p>
+    <% end %>
+  </div>
+  <hr />
 <% end %>
+
+<div>
+  <h3>All Projects</h3>
+  <% @projects.each do |project| %>
+    <p>TODO add pagination here with will_paginate</p>
+    <p><%= link_to project.name, project %></p>
+  <% end %>
+  <%= link_to 'New Project', { :action => 'new' }, method: :get, class: 'btn btn-primary' %>
+</div>
