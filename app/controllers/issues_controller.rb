@@ -1,5 +1,6 @@
 class IssuesController < ApplicationController
   before_action :issue, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :new, :edit, :update, :destroy]
 
   def create
     @issue = Issue.new(issue_params)

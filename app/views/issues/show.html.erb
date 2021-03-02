@@ -19,7 +19,7 @@
     </div>
   </div>
 </div>
-<% if current_user.is_member_of?(project: @issue.project) %>
+<% if current_user&.is_member_of?(project: @issue.project) %>
   <%= link_to 'Edit Issue', edit_issue_path(@issue), class: 'btn btn-primary' %>
   <%= link_to 'Delete Issue', @issue, method: :delete, class: 'btn btn-danger' %>
 <% end %>
