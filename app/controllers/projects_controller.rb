@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :verify_project_exists, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @projects = Project.all
@@ -12,6 +13,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
+      ProjectRole.create(user: current_user, project: @project, role: 'admin')
       flash[:success] = "Project \"#{@project.name}\" successfully created."
       redirect_to @project
     else

@@ -6,5 +6,5 @@ class Project < ApplicationRecord
             length: { minimum: 3, maximum: 30 }
 
   has_many :issues, dependent: :destroy
-  has_many :project_roles
+  has_many :project_roles, dependent: :destroy
 end
