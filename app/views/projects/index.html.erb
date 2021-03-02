@@ -18,8 +18,8 @@
 
 <div>
   <h3>All Projects</h3>
+  <p>TODO add pagination here with will_paginate</p>
   <% @projects.each do |project| %>
-    <p>TODO add pagination here with will_paginate</p>
     <p><%= link_to project.name, project %></p>
   <% end %>
   <%= link_to 'New Project', { :action => 'new' }, method: :get, class: 'btn btn-primary' %>

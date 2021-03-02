@@ -1,15 +1,27 @@
 <br />
-<h1><%= @issue.title %></h1>
-
-<div class="card float-right">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><b>Project:</b> <%= link_to @issue.project.name, projects_path %></li>
-    <li class="list-group-item"><b>State:</b> TODO</li>
-    <li class="list-group-item"><b>Priority:</b> <%= @issue.priority&.capitalize %></li>
-    <li class="list-group-item"><b>Category:</b> <%= @issue.category&.capitalize %></li>
-    <li class="list-group-item"><b>Assigee:</b> TODO</li>
-    <li class="list-group-item"><b>Created:</b> <%= @issue.created_at.strftime('%F') %></li>
-  </ul>
+<div class="row">
+  <div class="col"><h1><%= @issue.title %></h1></div>
 </div>
-
-<p><%= @issue.description %></p>
+<div class="row">
+  <div class="col-9">
+    <p><%= @issue.description %>
+  </div>
+  <div class="col-3">
+    <div class="card float-right">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><b>Project:</b> <%= link_to @issue.project.name, projects_path %></li>
+        <li class="list-group-item"><b>State:</b> TODO</li>
+        <li class="list-group-item"><b>Priority:</b> <%= @issue.priority&.capitalize %></li>
+        <li class="list-group-item"><b>Category:</b> <%= @issue.category&.capitalize %></li>
+        <li class="list-group-item"><b>Assigee:</b> TODO</li>
+        <li class="list-group-item"><b>Created:</b> <%= @issue.created_at.strftime('%F') %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<% if current_user.is_member_of?(project: @issue.project) %>
+  <div class="row">
+    <%= link_to 'Edit Issue', edit_issue_path(@issue), class: 'btn btn-primary' %>
+    <%= link_to 'Delete Issue', @issue, method: :delete, class: 'btn btn-danger' %>
+  </div>
+<% end %>

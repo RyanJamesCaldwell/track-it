@@ -1,0 +1,33 @@
+<% provide(:title, 'New Issue') %>
+<h1>New Issue for "<%= Project.find(@project_id).name %>"</h1>
+
+<%= form_with(model: @issue, method: :post, local: true) do |f| %>
+  <%= f.label :title %>
+  <br />
+  <%= f.text_field :title %>
+  <br />
+
+  <%= f.label :description %>
+  <br />
+  <%= f.text_area :description %>
+  <br />
+
+  <%= f.label :category %>
+  <br />
+  <%= f.text_area :category %>
+  <br />
+
+  <%= f.label :priority %>
+  <br />
+  <%= f.select :priority, ['critical', 'major', 'normal', 'minor'] %>
+  <br />
+  <br />
+
+  <%= f.label :project_id %>
+  <br />
+  <%= f.number_field :project_id, value: @project_id, readonly: true %>
+  <br />
+  <br />
+
+  <%= f.submit 'Create Issue' %>
+<% end %>
