@@ -1,6 +1,6 @@
 class IssuesController < ApplicationController
   before_action :issue, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:create, :new, :edit, :update, :destroy]
+  before_action :verify_project_membership, only: [:create, :new, :edit, :update, :destroy]
 
   def create
     @issue = Issue.new(issue_params)
@@ -45,6 +45,15 @@ class IssuesController < ApplicationController
   end
 
   private
+
+  def verify_project_membership
+    project = @issue&.project || Project.find_by(id: params[:project_id]) || Project.find_by(id: params[:issue][:project_id])
+
+    unless authenticate_user! && current_user.is_member_of?(project: project)
+      flash[:danger] = 'You must be a member of the project to do that.'
+      redirect_to project
+    end
+  end
 
   def issue
     @issue = Issue.find_by(id: params[:id])
