@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  before_action :verify_project_exists, only: [:show, :edit, :update, :destroy]
+
   def index
     @projects = Project.all
   end
@@ -18,29 +20,25 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find_by(id: params[:id])
   end
 
   def edit
-    @project = Project.find_by(id: params[:id])
   end
 
   def update
-    @project = Project.find_by(id: params[:id])
     if @project.update(project_params)
       flash[:success] = "Project '#{@project.name}' updated."
       redirect_to @project
     else
-      flash[:danger] = "Project '#{@project.name}' could not be updated."
+      flash[:danger] = "Project could not be updated."
       render 'edit'
     end
   end
 
   def destroy
-    @project = Project.find_by(id: params[:id])
     if @project.destroy
       flash[:success] = "Project '#{@project.name}' deleted."
-      redirect_to root_url
+      redirect_to projects_path
     else
       redirect_to @project
     end
@@ -50,5 +48,10 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:name, :description)
+  end
+
+  def verify_project_exists
+    @project = Project.find_by(id: params[:id])
+    render_404 unless @project
   end
 end

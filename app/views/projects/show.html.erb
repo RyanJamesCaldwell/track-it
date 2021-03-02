@@ -3,5 +3,9 @@
 <p>
   <%= @project.description %>
 </p>
-<%= link_to 'Edit Project', edit_project_path(@project) %>
-<%= link_to 'Delete Project', project_path, method: :delete %>
+<p>
+  <%= link_to 'Edit Project', edit_project_path(@project) %>
+</p>
+<p>
+  <%= link_to 'Delete Project', project_path, method: :delete %>
+</p>
