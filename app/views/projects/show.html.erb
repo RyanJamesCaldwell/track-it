@@ -6,7 +6,7 @@
   <% end %>
 </h1>
 
-<div class='container'>
+<div class='row'>
   <p>
     <%= @project.description %>
   </p>
@@ -17,6 +17,8 @@
         <tr>
           <th scope='col'>ID</th>
           <th scope='col'>Priority</th>
+          <th scope='col'>Category</th>
+          <th scope='col'>State</th>
           <th scope='col'>Title</th>
           <th scope='col'>Description</th>
           <th scope='col'>Created</th>
@@ -26,9 +28,11 @@
         <% @project.issues.each do |issue| %>
           <tr>
             <th scope='row'><%= link_to issue.id, project_issue_path(@project, issue) %></th>
-            <td><%= issue.priority.capitalize %></td>
+            <td><%= issue.priority&.capitalize %></td>
+            <td><%= issue.category&.capitalize %></td>
+            <td><%= issue.state&.titleize %></td>
             <td><%= link_to issue.title, project_issue_path(@project, issue) %></td>
-            <td><%= issue.description.truncate(100)%></td>
+            <td><%= issue.description.truncate(30)%></td>
             <td><%= issue.created_at.strftime('%F') %></td>
           </tr>
         <% end %>

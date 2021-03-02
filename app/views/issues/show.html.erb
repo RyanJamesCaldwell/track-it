@@ -10,9 +10,9 @@
     <div class="card float-right">
       <ul class="list-group list-group-flush">
         <li class="list-group-item"><b>Project:</b> <%= link_to @issue.project.name, projects_path %></li>
-        <li class="list-group-item"><b>State:</b> TODO</li>
-        <li class="list-group-item"><b>Priority:</b> <%= @issue.priority&.capitalize %></li>
-        <li class="list-group-item"><b>Category:</b> <%= @issue.category&.capitalize %></li>
+        <li class="list-group-item"><b>State:</b> <%= @issue.state&.titleize %></li>
+        <li class="list-group-item"><b>Priority:</b> <%= @issue.priority&.titleize %></li>
+        <li class="list-group-item"><b>Category:</b> <%= @issue.category&.titleize %></li>
         <li class="list-group-item"><b>Assigee:</b> TODO</li>
         <li class="list-group-item"><b>Created:</b> <%= @issue.created_at.strftime('%F') %></li>
       </ul>

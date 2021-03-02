@@ -1,6 +1,8 @@
 class Issue < ApplicationRecord
   PRIORITIES = %w[critical major normal minor].freeze
   CATEGORIES = %w[requirements design development bugfix testing documentation]
+  STATES = ['open', 'in progress', 'ready for review', 'under review', 'reviewed - see comments', 'complete',
+            'duplicate', 'obsolete', "won't fix"]
 
   validates :title,
              presence: true,
@@ -13,6 +15,10 @@ class Issue < ApplicationRecord
 
   validates :category,
             inclusion: { in: CATEGORIES },
+            allow_blank: true
+
+  validates :state,
+            inclusion: { in: STATES },
             allow_blank: true
 
   belongs_to :project

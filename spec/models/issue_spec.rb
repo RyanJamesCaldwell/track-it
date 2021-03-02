@@ -5,6 +5,7 @@ RSpec.describe Issue, type: :model do
   let(:title_errors) { issue.errors[:title] }
   let(:priority_errors) { issue.errors[:priority] }
   let(:category_errors) { issue.errors[:category] }
+  let(:state_errors) { issue.errors[:state] }
   let(:inclusion_error) { "is not included in the list" }
   let(:title_too_short_error) { "is too short (minimum is 5 characters)" }
   let(:title_too_long_error) { "is too long (maximum is 50 characters)" }
@@ -62,13 +63,25 @@ RSpec.describe Issue, type: :model do
 
   describe '#category' do
     context 'inclusion validation' do
-      it 'should reject priorities that are not recognized' do
+      it 'should reject categories that are not recognized' do
         issue.title = 'Example Issue'
         issue.category = 'bad category'
 
         issue.validate
         expect(category_errors).to_not be_empty
         expect(category_errors).to include(inclusion_error)
+      end
+    end
+  end
+
+  describe '#state' do
+    context 'inclusion validation' do
+      it 'should reject states that are not recognized' do
+        issue.state = 'fake state!'
+
+        issue.validate
+        expect(state_errors).to_not be_empty
+        expect(state_errors).to include(inclusion_error)
       end
     end
   end
