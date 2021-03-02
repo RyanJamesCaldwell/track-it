@@ -9,7 +9,7 @@
   <div class="col-3">
     <div class="card float-right">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item"><b>Project:</b> <%= link_to @issue.project.name, projects_path %></li>
+        <li class="list-group-item"><b>Project:</b> <%= link_to @issue.project.name, @issue.project %></li>
         <li class="list-group-item"><b>State:</b> <%= @issue.state&.titleize %></li>
         <li class="list-group-item"><b>Priority:</b> <%= @issue.priority&.titleize %></li>
         <li class="list-group-item"><b>Category:</b> <%= @issue.category&.titleize %></li>
