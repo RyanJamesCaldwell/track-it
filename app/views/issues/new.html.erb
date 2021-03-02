@@ -14,12 +14,12 @@
 
   <%= f.label :category %>
   <br />
-  <%= f.text_area :category %>
+  <%= f.select :category, %w[requirements design development bugfix testing documentation] %>
   <br />
 
   <%= f.label :priority %>
   <br />
-  <%= f.select :priority, ['critical', 'major', 'normal', 'minor'] %>
+  <%= f.select :priority, %w[minor normal major critical] %>
   <br />
   <br />
 

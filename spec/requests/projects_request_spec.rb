@@ -23,7 +23,7 @@ RSpec.describe 'Projects', :type => :request do
         example_project_name = 'Example Project Name'
         params = { project: { name: example_project_name, description: 'example description' } }
         post '/projects', params: params
-        expect(flash[:success]).to eq("Project '#{example_project_name}' successfully created.")
+        expect(flash[:success]).to eq("Project \"Example Project Name\" successfully created.")
       end
     end
     context 'when provided invalid project input' do
@@ -46,7 +46,7 @@ RSpec.describe 'Projects', :type => :request do
 
         patch project_path(project), params: params
         project.reload
-        expect(flash[:success]).to eq("Project '#{project.name}' updated.")
+        expect(flash[:success]).to eq("Project \"New Project Name\" updated.")
         expect(project.name).to eq('New Project Name')
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe 'Projects', :type => :request do
       let(:example_project) { create(:project) }
       it 'destroys the project' do
         delete project_path(example_project), params: { project: { id: example_project.id } }
-        expect(flash[:success]).to eq("Project '#{example_project.name}' deleted.")
+        expect(flash[:success]).to eq("Project \"#{example_project.name}\" deleted.")
       end
     end
 

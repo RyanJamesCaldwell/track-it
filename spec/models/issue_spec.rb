@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Issue, type: :model do
-  let(:issue) { Issue.new }
+  let(:issue) { create(:issue) }
   let(:title_errors) { issue.errors[:title] }
   let(:priority_errors) { issue.errors[:priority] }
-  let(:priority_invalid_error) { "is not included in the list" }
+  let(:category_errors) { issue.errors[:category] }
+  let(:inclusion_error) { "is not included in the list" }
   let(:title_too_short_error) { "is too short (minimum is 5 characters)" }
   let(:title_too_long_error) { "is too long (maximum is 50 characters)" }
   let(:blank_title_error) { "can't be blank" }
@@ -54,7 +55,20 @@ RSpec.describe Issue, type: :model do
 
         issue.validate
         expect(priority_errors).to_not be_empty
-        expect(priority_errors).to include(priority_invalid_error)
+        expect(priority_errors).to include(inclusion_error)
+      end
+    end
+  end
+
+  describe '#category' do
+    context 'inclusion validation' do
+      it 'should reject priorities that are not recognized' do
+        issue.title = 'Example Issue'
+        issue.category = 'bad category'
+
+        issue.validate
+        expect(category_errors).to_not be_empty
+        expect(category_errors).to include(inclusion_error)
       end
     end
   end
