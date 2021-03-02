@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
-      flash[:success] = "Project '#{@project.name}' successfully created."
+      flash[:success] = "Project \"#{@project.name}\" successfully created."
       redirect_to @project
     else
       render 'new'
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      flash[:success] = "Project '#{@project.name}' updated."
+      flash[:success] = "Project \"#{@project.name}\" updated."
       redirect_to @project
     else
       flash[:danger] = "Project could not be updated."
@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     if @project.destroy
-      flash[:success] = "Project '#{@project.name}' deleted."
+      flash[:success] = "Project \"#{@project.name}\" deleted."
       redirect_to projects_path
     else
       redirect_to @project
