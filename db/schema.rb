@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_02_004330) do
+ActiveRecord::Schema.define(version: 2021_03_02_233433) do
 
   create_table "issues", force: :cascade do |t|
     t.string "title"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2021_03_02_004330) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "state"
     t.index ["project_id"], name: "index_issues_on_project_id"
+  end
+
+  create_table "project_membership_requests", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index "\"user\", \"project\"", name: "index_project_membership_requests_on_user_and_project", unique: true
+    t.index ["project_id"], name: "index_project_membership_requests_on_project_id"
+    t.index ["user_id"], name: "index_project_membership_requests_on_user_id"
   end
 
   create_table "project_roles", force: :cascade do |t|
@@ -54,6 +64,8 @@ ActiveRecord::Schema.define(version: 2021_03_02_004330) do
   end
 
   add_foreign_key "issues", "projects"
+  add_foreign_key "project_membership_requests", "projects"
+  add_foreign_key "project_membership_requests", "users"
   add_foreign_key "project_roles", "projects"
   add_foreign_key "project_roles", "users"
 end

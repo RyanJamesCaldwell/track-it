@@ -1,0 +1,21 @@
+<br />
+<h1>Membership requests for <%= @project.name %></h1>
+
+<% if @requests.any? %>
+  <% @requests.each do |request| %>
+    <div class='row my-3'>
+      <div class='card border-dark col-9 mx-auto'>
+        <div class='card-body'>
+          <h5 class="card-title">New membership request</h5>
+          <p class="card-text">User <%= request.user.email %> has requested to join your project.</p>
+          <%= link_to 'Accept request', '#', class: 'btn btn-primary' %>
+          <%= link_to 'Deny request', project_project_membership_request_path(project_id: request.project_id, id: request.id), method: :delete, class: 'btn btn-danger' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>There aren't any requests to join your project right now.</p>
+<% end %>
+
+<%= link_to 'Back', :back, class: 'btn btn-outline-secondary' %>
