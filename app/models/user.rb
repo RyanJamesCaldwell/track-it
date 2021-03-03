@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   has_many :project_roles, dependent: :destroy
   has_many :projects, through: :project_roles
-  has_many :project_membership_requests, dependent: :destroy
+  has_many :membership_requests, dependent: :destroy
 
   def is_admin_for?(project:)
     return false if project.nil?
@@ -17,6 +17,6 @@ class User < ApplicationRecord
   end
 
   def can_request_membership_for?(project: project)
-    ProjectMembershipRequest.find_by_user_and_project(self, project).nil?
+    MembershipRequest.find_by_user_and_project(self, project).nil?
   end
 end

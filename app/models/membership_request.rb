@@ -1,4 +1,4 @@
-class ProjectMembershipRequest < ApplicationRecord
+class MembershipRequest < ApplicationRecord
   belongs_to :user
   belongs_to :project
 
@@ -6,6 +6,6 @@ class ProjectMembershipRequest < ApplicationRecord
 
   def self.find_by_user_and_project(user, project)
     return nil unless user && project
-    ProjectMembershipRequest.find_by(user: user, project: project)
+    MembershipRequest.find_by(user: user, project: project)
   end
 end

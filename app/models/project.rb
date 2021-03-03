@@ -7,5 +7,5 @@ class Project < ApplicationRecord
 
   has_many :issues, dependent: :destroy
   has_many :project_roles, dependent: :destroy
-  has_many :project_membership_requests, dependent: :destroy
+  has_many :membership_requests, dependent: :destroy
 end

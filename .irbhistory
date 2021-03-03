@@ -13,3 +13,7 @@ Project.all
 Project.destroy(3)
 Project.all
 exit
+Project
+exit
+MembershipRequest
+exit

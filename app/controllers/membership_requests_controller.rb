@@ -1,14 +1,14 @@
-class ProjectMembershipRequestsController < ApplicationController
+class MembershipRequestsController < ApplicationController
   before_action :authenticate_user!, :project
   before_action :verify_request_is_for_self, only: [:create]
   before_action :verify_project_admin, only: [:index, :destroy]
 
   def index
-    @requests = ProjectMembershipRequest.where(project: @project)
+    @requests = MembershipRequest.where(project: @project)
   end
 
   def create
-    @membership_request = ProjectMembershipRequest.new(membership_request_params)
+    @membership_request = MembershipRequest.new(membership_request_params)
     if @membership_request.save
       flash[:success] = "Your request to join #{@project.name} has been sent."
       redirect_to @project
@@ -19,15 +19,15 @@ class ProjectMembershipRequestsController < ApplicationController
   end
 
   def destroy
-    @request = ProjectMembershipRequest.find_by(id: membership_request_params[:id],
-                                                project_id: membership_request_params[:project_id])
+    @request = MembershipRequest.find_by(id: membership_request_params[:id],
+                                         project_id: membership_request_params[:project_id])
     if @request&.destroy
       flash[:success] = "Membership request was denied."
     else
       flash[:success] = "Membership request was accepted."
     end
 
-    redirect_to project_project_membership_requests_path
+    redirect_to project_membership_requests_path
   end
 
   private

@@ -11,8 +11,8 @@
     <%= @project.description %>
     <br />
     <br />
-    <% if current_user&.is_admin_for?(project: @project) && @project.project_membership_requests.any? %>
-      <%= link_to 'View membership requests', project_project_membership_requests_path(@project), class: 'btn btn-primary' %>
+    <% if current_user&.is_admin_for?(project: @project) && @project.membership_requests.any? %>
+      <%= link_to 'View membership requests', project_membership_requests_path(@project), class: 'btn btn-primary' %>
     <% end %>
   </p>
 </div>
@@ -50,7 +50,7 @@
       <% if current_user&.is_member_of?(project: @project) %>
         <%= link_to 'New Issue', new_issue_path(project_id: @project.id), class: 'btn btn-primary' %>
       <% elsif current_user&.can_request_membership_for?(project: @project) %>
-        <%= link_to 'Request to join project', project_project_membership_requests_path(user_id: current_user.id, project_id: @project.id), method: :post, class: 'btn btn-primary' %>
+        <%= link_to 'Request to join project', project_membership_requests_path(user_id: current_user.id, project_id: @project.id), method: :post, class: 'btn btn-primary' %>
       <% end %>
     </div>
   </p>

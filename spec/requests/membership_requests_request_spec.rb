@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "ProjectMembershipRequests", type: :request do
+RSpec.describe "MembershipRequests", type: :request do
 
   describe "GET /create" do
     it "returns http success" do
