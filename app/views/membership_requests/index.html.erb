@@ -10,12 +10,12 @@
           <p class="card-text">User <%= request.user.email %> has requested to join your project.</p>
           <div class='row'>
             <%= form_with url: project_membership_request_path(id: @project.id), method: :put, local: true do |f| %>
-              <%= f.hidden_field :id, value: request.id, type: "hidden" %>
+              <%= f.hidden_field :request_id, value: request.id, type: "hidden" %>
               <%= f.hidden_field :admin_action, value: 'accept', type: "hidden" %>
               <%= f.submit 'Accept request', class: 'btn btn-primary mr-2' %>
             <% end %>
             <%= form_with url: project_membership_request_path(id: @project.id), method: :put, local: true do |f| %>
-              <%= f.hidden_field :id, value: request.id, type: "hidden" %>
+              <%= f.hidden_field :request_id, value: request.id, type: "hidden" %>
               <%= f.hidden_field :admin_action, value: 'reject', type: "hidden" %>
               <%= f.submit 'Reject request', class: 'btn btn-danger' %>
             <% end %>

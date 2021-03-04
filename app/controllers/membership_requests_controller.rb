@@ -8,8 +8,8 @@ class MembershipRequestsController < ApplicationController
   end
 
   def create
-    @membership_request = MembershipRequest.new(user_id: create_membership_request_params[:user_id],
-                                                project_id: create_membership_request_params[:project_id])
+    @membership_request = MembershipRequest.new(user_id: params[:user_id],
+                                                project_id: params[:project_id])
     if @membership_request.save
       flash[:success] = "Your request to join #{@project.name} has been sent."
       redirect_to @project
@@ -20,7 +20,7 @@ class MembershipRequestsController < ApplicationController
   end
 
   def update
-    @request = MembershipRequest.find_by(id: params[:id])
+    @request = MembershipRequest.find_by(id: params[:request_id])
     request_handler = MembershipRequestHandler.new(@request)
 
     if params[:admin_action] == 'accept'
@@ -50,9 +50,5 @@ class MembershipRequestsController < ApplicationController
 
   def project
     @project = Project.find_by(id: params[:project_id])
-  end
-
-  def create_membership_request_params
-    params.permit(:user_id, :project_id)
   end
 end
