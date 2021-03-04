@@ -22,6 +22,8 @@ Bundler.require(*Rails.groups)
 module TrackIt
   class Application < Rails::Application
     config.load_defaults 6.0
+    config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
+
     config.generators.test_framework :rspec
     config.generators.system_tests = nil
   end

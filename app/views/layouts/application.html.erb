@@ -15,6 +15,7 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
+      <br />
       <% flash.each do |message_type, message| %>
         <% if message_type == 'notice' %>
           <div class="alert alert-success %>"><%= message %></div>        

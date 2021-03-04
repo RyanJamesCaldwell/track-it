@@ -17,6 +17,15 @@ class User < ApplicationRecord
   end
 
   def can_request_membership_for?(project: project)
-    MembershipRequest.find_by_user_and_project(self, project).nil?
+    !has_open_request_to_project?(project) && !is_member_of?(project: project)
+  end
+
+  private
+
+  def has_open_request_to_project?(project)
+    MembershipRequest.find_by(user: self,
+                              project: project,
+                              accepted_at: nil,
+                              rejected_at: nil)
   end
 end

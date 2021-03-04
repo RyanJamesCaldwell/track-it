@@ -11,7 +11,7 @@
     <%= @project.description %>
     <br />
     <br />
-    <% if current_user&.is_admin_for?(project: @project) && @project.membership_requests.any? %>
+    <% if current_user&.is_admin_for?(project: @project) && @project.open_membership_requests.any? %>
       <%= link_to 'View membership requests', project_membership_requests_path(@project), class: 'btn btn-primary' %>
     <% end %>
   </p>

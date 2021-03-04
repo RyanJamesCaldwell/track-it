@@ -1,14 +1,15 @@
 class MembershipRequestsController < ApplicationController
   before_action :authenticate_user!, :project
   before_action :verify_request_is_for_self, only: [:create]
-  before_action :verify_project_admin, only: [:index, :destroy]
+  before_action :verify_project_admin, only: [:index, :update]
 
   def index
-    @requests = MembershipRequest.where(project: @project)
+    @requests = @project.open_membership_requests
   end
 
   def create
-    @membership_request = MembershipRequest.new(membership_request_params)
+    @membership_request = MembershipRequest.new(user_id: create_membership_request_params[:user_id],
+                                                project_id: create_membership_request_params[:project_id])
     if @membership_request.save
       flash[:success] = "Your request to join #{@project.name} has been sent."
       redirect_to @project
@@ -18,16 +19,17 @@ class MembershipRequestsController < ApplicationController
     end
   end
 
-  def destroy
-    @request = MembershipRequest.find_by(id: membership_request_params[:id],
-                                         project_id: membership_request_params[:project_id])
-    if @request&.destroy
-      flash[:success] = "Membership request was denied."
+  def update
+    @request = MembershipRequest.find_by(id: params[:id])
+    request_handler = MembershipRequestHandler.new(@request)
+
+    if params[:admin_action] == 'accept'
+      request_handler.accept
     else
-      flash[:success] = "Membership request was accepted."
+      request_handler.reject
     end
 
-    redirect_to project_membership_requests_path
+    redirect_to projects_path
   end
 
   private
@@ -50,8 +52,7 @@ class MembershipRequestsController < ApplicationController
     @project = Project.find_by(id: params[:project_id])
   end
 
-  def membership_request_params
-    puts "PARAMS======================= #{params}"
-    params.permit(:id, :user_id, :project_id)
+  def create_membership_request_params
+    params.permit(:user_id, :project_id)
   end
 end
