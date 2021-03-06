@@ -16,7 +16,7 @@ class User < ApplicationRecord
     ProjectRole.find_by_user_and_project(self, project)
   end
 
-  def can_request_membership_for?(project: project)
+  def can_request_membership_for?(project:)
     !has_open_request_to_project?(project) && !is_member_of?(project: project)
   end
 

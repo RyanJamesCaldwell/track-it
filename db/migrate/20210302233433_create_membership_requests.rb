@@ -6,7 +6,5 @@ class CreateMembershipRequests < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    
-    add_index :membership_requests, [:user, :project], unique: true
   end
 end

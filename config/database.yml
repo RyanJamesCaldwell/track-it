@@ -22,4 +22,7 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  username: track_it
+  password: <%= ENV['track_it_database_password'] %>
+  database: db/production.db
