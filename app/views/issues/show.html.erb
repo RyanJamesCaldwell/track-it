@@ -4,7 +4,7 @@
 </div>
 <div class="row">
   <div class="col-9">
-    <p><%= @issue.description %>
+    <p><%= @issue.description %></p>
   </div>
   <div class="col-3">
     <div class="card float-right">
@@ -13,7 +13,6 @@
         <li class="list-group-item"><b>State:</b> <%= @issue.state&.titleize %></li>
         <li class="list-group-item"><b>Priority:</b> <%= @issue.priority&.titleize %></li>
         <li class="list-group-item"><b>Category:</b> <%= @issue.category&.titleize %></li>
-        <li class="list-group-item"><b>Assigee:</b> TODO</li>
         <li class="list-group-item"><b>Created:</b> <%= @issue.created_at.strftime('%F') %></li>
       </ul>
     </div>

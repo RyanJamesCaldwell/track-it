@@ -1,12 +1,11 @@
 <% provide(:title, "Home") %>
 
-<div class="center jumbotron">
-  <h1>TrackIT</h1>
-  <h4>
-    TrackIT is a free and open source issue tracker for software development teams.
-  </h4>
-  <% unless user_signed_in? %>
-    <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-lg btn-primary' %>
-    <%= link_to 'Log In', new_user_session_path, class: 'btn btn-lg btn-primary' %>
-  <% end %>
+<div class='vertical-center'>
+  <div class="jumbotron">
+    <h1 class="display-4">TrackIT - the free issue tracker</h1>
+    <p class="lead">TrackIT is a free and <a href="https://github.com/RyanJamesCaldwell/track-it" target='_blank'>open source</a> issue tracker that will help you and your team manage your project's needs more efficiently.</p>
+    <p class='center'>
+      <%= link_to 'Get Started', new_user_registration_path, class: 'btn btn-lg btn-primary' %>
+    </p>
+  </div>
 </div>

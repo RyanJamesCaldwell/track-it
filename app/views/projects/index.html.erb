@@ -13,14 +13,21 @@
       <p>You haven't joined any projects yet.</p>
     <% end %>
   </div>
-  <hr />
+<% else %>
+  <div>
+    <h3>Your Projects</h3>
+    <p><%= link_to 'Log in', new_user_session_path %> to view your projects.</p>
+  </div>
 <% end %>
+
+<br />
+<hr />
+<br />
 
 <div>
   <h3>All Projects</h3>
-  <p>TODO add pagination here with will_paginate</p>
   <% @projects.each do |project| %>
     <p><%= link_to project.name, project %></p>
   <% end %>
-  <%= link_to 'New Project', { :action => 'new' }, method: :get, class: 'btn btn-primary' %>
+  <%= link_to 'Create Project', { :action => 'new' }, method: :get, class: 'btn btn-primary' %>
 </div>
