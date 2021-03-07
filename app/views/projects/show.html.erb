@@ -35,11 +35,11 @@
       <tbody>
         <% @project.issues.each do |issue| %>
           <tr>
-            <th scope='row'><%= link_to issue.id, project_issue_path(@project, issue) %></th>
+            <th scope='row'><%= link_to issue.id, issue %></th>
             <td><%= issue.priority&.capitalize %></td>
             <td><%= issue.category&.capitalize %></td>
             <td><%= issue.state&.titleize %></td>
-            <td><%= link_to issue.title, project_issue_path(@project, issue) %></td>
+            <td><%= link_to issue.title, issue %></td>
             <td><%= issue.description.truncate(30)%></td>
             <td><%= issue.created_at.strftime('%F') %></td>
           </tr>

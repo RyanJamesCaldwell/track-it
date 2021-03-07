@@ -6,7 +6,7 @@ class IssuesController < ApplicationController
     @issue = Issue.new(issue_params)
     if @issue.save
       flash[:success] = "Issue \"#{@issue.title}\" successfully created."
-      redirect_to project_issue_path(@issue.project.id, @issue.id)
+      redirect_to @issue
     else
       flash[:danger] = 'Issue could not be created.'
       render 'new'
@@ -27,7 +27,7 @@ class IssuesController < ApplicationController
   def update
     if @issue.update(issue_params)
       flash[:success] = "Issue \"#{@issue.title}\" updated"
-      redirect_to project_issue_path(@issue.project, @issue)
+      redirect_to @issue
     else
       flash[:danger] = 'Issue could not be updated.'
       render 'edit'
