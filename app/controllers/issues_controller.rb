@@ -1,6 +1,6 @@
 class IssuesController < ApplicationController
-  before_action :issue, only: [:show, :edit, :update, :destroy]
-  before_action :verify_project_membership, only: [:create, :new, :edit, :update, :destroy]
+  before_action :issue, only: %i[show edit update destroy].freeze
+  before_action :verify_project_membership, only: %i[create new edit update destroy].freeze
 
   def create
     @issue = Issue.new(issue_params)
@@ -18,6 +18,7 @@ class IssuesController < ApplicationController
   end
 
   def show
+    @comments = @issue.comments
   end
 
   def edit
