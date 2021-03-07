@@ -21,4 +21,45 @@
 <% if current_user&.is_member_of?(project: @issue.project) %>
   <%= link_to 'Edit Issue', edit_issue_path(@issue), class: 'btn btn-primary' %>
   <%= link_to 'Delete Issue', @issue, method: :delete, class: 'btn btn-danger' %>
+  <br />
+  <br />
+  <br />
+  <small>Commenting as <%= current_user.email %></small>
+  <%= form_for :comment, url: issue_comments_path(issue_id: @issue.id), method: :post, local: true do |f| %>
+    <%= f.text_area :content, placeholder: 'Add a comment here...', cols: 60, rows: 5 %>
+    <%= f.hidden_field :issue_id, value: @issue.id %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <br />
+    <%= f.submit 'Add comment', class: 'btn btn-primary' %>
+  <% end %>
 <% end %>
+
+<br />
+<br />
+<h3 class='mt-3'>Comments</h3>
+<% if @comments.any? %>
+  <% @comments.each do |comment| %>
+    <div class='card mb-3 pl-3 pt-3'>
+      <div class='row'>
+        <div class='col-sm-11'>
+          <p><small><%= comment.user.email %> commented <%= comment.created_at.strftime('%m/%d/%Y %I:%M') %></small></p>
+          <p><%= comment.content %></p>
+        </div>
+        <% if comment.user == current_user %>
+          <%= link_to issue_comment_path(issue_id: @issue.id, id: comment.id), method: :delete, data: { confirm: 'Are you sure you want to remove your comment?' } do %>
+            <div class='col-sm-1' style='position: absolute; right: 0;'>
+              <button type='button' class='close' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>No one has commented on this issue yet.</p>
+<% end %>
+<br />
+<br />
+<br />

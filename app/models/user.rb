@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :project_roles, dependent: :destroy
   has_many :projects, through: :project_roles
   has_many :membership_requests, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   def is_admin_for?(project:)
     return false if project.nil?

@@ -22,4 +22,5 @@ class Issue < ApplicationRecord
             allow_blank: true
 
   belongs_to :project
+  has_many :comments
 end
